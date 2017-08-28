@@ -33,7 +33,7 @@ namespace RobertBookStore
     /// </summary>
     public class ShoppingCart
     {
-        public List<Book> buyBookProduct { get; set; }
+        public List<Book> buyBook { get; set; }
 
         /// <summary>
         /// 總價

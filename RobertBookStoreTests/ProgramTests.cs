@@ -14,7 +14,7 @@ namespace RobertBookStore.Tests
             var target = new BookStore();
             var CustomerShoppingCart = new ShoppingCart
             {
-                buyBookProduct = new List<Book>
+                buyBook = new List<Book>
                 {
                     new Book{ Name = "哈利波特一" , Quantity=1 ,SalePrice= 100} 
                 }
@@ -29,16 +29,16 @@ namespace RobertBookStore.Tests
         }
 
         [TestMethod()]
-        public void 兩本書時要要折扣()
+        public void 兩本書時要有九五折()
         {
             //arrange
             var target = new BookStore();
             var CustomerShoppingCart = new ShoppingCart
             {
-                buyBookProduct = new List<Book>
+                buyBook = new List<Book>
                 {
                     new Book{ Name = "哈利波特一" , Quantity=1 ,SalePrice= 100},
-                    new Book{ Name = "哈利波特一" , Quantity=1 ,SalePrice= 100}
+                    new Book{ Name = "哈利波特二" , Quantity=1 ,SalePrice= 100}
                 }
             };
 
@@ -46,6 +46,29 @@ namespace RobertBookStore.Tests
 
             //assert
             var expected = 190;
+
+            Assert.AreEqual(expected, CustomerShoppingCart.GrossPrice);
+        }
+
+        [TestMethod()]
+        public void 三本書時要有九折()
+        {
+            //arrange
+            var target = new BookStore();
+            var CustomerShoppingCart = new ShoppingCart
+            {
+                buyBook = new List<Book>
+                {
+                    new Book{ Name = "哈利波特一" , Quantity=1 ,SalePrice= 100},
+                    new Book{ Name = "哈利波特二" , Quantity=1 ,SalePrice= 100},
+                    new Book{ Name = "哈利波特三" , Quantity=1 ,SalePrice= 100}
+                }
+            };
+
+            target.ShoppingCartCalculation(CustomerShoppingCart);
+
+            //assert
+            var expected = 270;
 
             Assert.AreEqual(expected, CustomerShoppingCart.GrossPrice);
         }

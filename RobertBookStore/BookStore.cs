@@ -26,7 +26,7 @@ namespace RobertBookStore
             var total = 0d;
 
             //將購物車內物品依序讀取
-            foreach (var ShoppingCartItem in customerShoppingCart.buyBookProduct.OrderBy(x=>x.Name))
+            foreach (var ShoppingCartItem in customerShoppingCart.buyBook.OrderBy(x=>x.Name))
             {
                 total += ShoppingCartItem.Quantity * ShoppingCartItem.SalePrice;
 
@@ -40,9 +40,13 @@ namespace RobertBookStore
                 //}
             }
 
-            if(customerShoppingCart.buyBookProduct.Count >= 2)
+            if(customerShoppingCart.buyBook.Count >= 2)
             {
                 total = total * 0.95d;
+            }
+            else if(customerShoppingCart.buyBook.Count >= 3)
+            {
+                total = total * 0.9d;
             }
 
             customerShoppingCart.GrossPrice = total;
