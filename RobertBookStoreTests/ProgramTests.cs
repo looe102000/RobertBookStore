@@ -121,5 +121,28 @@ namespace RobertBookStore.Tests
 
             Assert.AreEqual(expected, CustomerShoppingCart.GrossPrice);
         }
+
+        [TestMethod()]
+        public void 一二集各買了一本_第三集買了兩本()
+        {
+            //arrange
+            var target = new BookStore();
+            var CustomerShoppingCart = new ShoppingCart
+            {
+                buyBook = new List<Book>
+                {
+                    new Book{ Name = "哈利波特一" , Quantity=1 ,SalePrice= 100},
+                    new Book{ Name = "哈利波特二" , Quantity=1 ,SalePrice= 100},
+                    new Book{ Name = "哈利波特三" , Quantity=2 ,SalePrice= 100}
+                }
+            };
+
+            target.ShoppingCartCalculation(CustomerShoppingCart);
+
+            //assert
+            var expected = 370;
+
+            Assert.AreEqual(expected, CustomerShoppingCart.GrossPrice);
+        }
     }
 }
