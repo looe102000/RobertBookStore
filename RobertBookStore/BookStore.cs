@@ -13,11 +13,13 @@ namespace RobertBookStore
         {
             var total = 0d;
             var MAX_Transaction = 0;
+            var BookCout = 0;
 
             MAX_Transaction = customerShoppingCart.buyBook.Max(x => x.Quantity);
 
             for(int i=0;i < MAX_Transaction; i++)
             {
+                BookCout = 0;
                 //將購物車內物品依序讀取
                 foreach (var ShoppingCartItem in customerShoppingCart.buyBook.OrderBy(x => x.Name))
                 {
@@ -28,21 +30,22 @@ namespace RobertBookStore
                     {
                         customerShoppingCart.buyBook.Remove(ShoppingCartItem);
                     }
+                    BookCout++;
                 }
 
-                if (customerShoppingCart.buyBook.Count == 2)
+                if (BookCout == 2)
                 {
                     total = total * 0.95d;
                 }
-                else if (customerShoppingCart.buyBook.Count == 3)
+                else if (BookCout == 3)
                 {
                     total = total * 0.9d;
                 }
-                else if (customerShoppingCart.buyBook.Count == 4)
+                else if (BookCout == 4)
                 {
                     total = total * 0.8d;
                 }
-                else if (customerShoppingCart.buyBook.Count >= 5)
+                else if (BookCout >= 5)
                 {
                     total = total * 0.75d;
                 }
