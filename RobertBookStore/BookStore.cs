@@ -40,7 +40,7 @@ namespace RobertBookStore
                 //}
             }
 
-            if(customerShoppingCart.buyBook.Count >= 2)
+            if(customerShoppingCart.buyBook.Count == 2)
             {
                 total = total * 0.95d;
             }
