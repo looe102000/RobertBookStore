@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
+using System;
 
 namespace RobertBookStore.Tests
 {
@@ -13,9 +14,9 @@ namespace RobertBookStore.Tests
             var target = new BookStore();
             var CustomerShoppingCart = new ShoppingCart
             {
-                buyBookProduct = new List<Product>
+                buyBookProduct = new List<Book>
                 {
-                    new Product{ProductItem="哈利波特一",Quantity=1}
+                    new Book{ Name = "哈利波特一" , Quantity=1 ,SalePrice= 100} 
                 }
             };
 
@@ -34,10 +35,10 @@ namespace RobertBookStore.Tests
             var target = new BookStore();
             var CustomerShoppingCart = new ShoppingCart
             {
-                buyBookProduct = new List<Product>
+                buyBookProduct = new List<Book>
                 {
-                    new Product{ProductItem="哈利波特一",Quantity=1},
-                    new Product{ProductItem="哈利波特二",Quantity=1}
+                    new Book{ Name = "哈利波特一" , Quantity=1 ,SalePrice= 100},
+                    new Book{ Name = "哈利波特一" , Quantity=1 ,SalePrice= 100}
                 }
             };
 
