@@ -48,9 +48,13 @@ namespace RobertBookStore
             {
                 total = total * 0.9d;
             }
-            else if (customerShoppingCart.buyBook.Count >= 4)
+            else if (customerShoppingCart.buyBook.Count == 4)
             {
                 total = total * 0.8d;
+            }
+            else if (customerShoppingCart.buyBook.Count >= 5)
+            {
+                total = total * 0.75d;
             }
 
             customerShoppingCart.GrossPrice = total;
