@@ -1,9 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using RobertBookStore;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace RobertBookStore.Tests
 {
@@ -15,9 +11,12 @@ namespace RobertBookStore.Tests
         {
             //arrange
             var target = new BookStore();
-            var CustomerShoppingCart = new List<ShoppingCart>
+            var CustomerShoppingCart = new ShoppingCart
             {
-                new ShoppingCart{ProductItem="哈利波特一",Quantity=1}
+                buyBookProduct = new List<Product>
+                {
+                    new Product{ProductItem="哈利波特一",Quantity=1}
+                }
             };
 
             target.ShoppingCartCalculation(CustomerShoppingCart);
@@ -25,7 +24,7 @@ namespace RobertBookStore.Tests
             //assert
             var expected = 100;
 
-            Assert.AreEqual(expected, CustomerShoppingCart[0].Quantity);
+            Assert.AreEqual(expected, CustomerShoppingCart.GrossPrice);
         }
     }
 }

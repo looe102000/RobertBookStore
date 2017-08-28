@@ -1,4 +1,6 @@
-﻿namespace RobertBookStore.Tests
+﻿using System.Collections.Generic;
+
+namespace RobertBookStore
 {
     /// <summary>
     /// 書籍
@@ -26,6 +28,16 @@
     /// </summary>
     public class ShoppingCart
     {
+        public List<Product> buyBookProduct { get; set; }
+
+        /// <summary>
+        /// 總價
+        /// </summary>
+        public int GrossPrice { get; set; }
+    }
+
+    public class Product
+    {
         /// <summary>
         /// 產品項目
         /// </summary>
@@ -35,10 +47,5 @@
         /// 產品數量
         /// </summary>
         public int Quantity { get; set; }
-
-        /// <summary>
-        /// 總價
-        /// </summary>
-        public int GrossPrice { get; set; }
     }
 }

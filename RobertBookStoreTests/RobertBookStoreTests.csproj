@@ -51,14 +51,12 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="BookStore.cs" />
-    <Compile Include="Warehouse.cs" />
     <Compile Include="ProgramTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RobertBookStore\RobertBookStore.csproj">
-      <Project>{9DCF344E-E132-4C51-ACF7-7FCA0571C8C2}</Project>
+      <Project>{9dcf344e-e132-4c51-acf7-7fca0571c8c2}</Project>
       <Name>RobertBookStore</Name>
     </ProjectReference>
   </ItemGroup>
