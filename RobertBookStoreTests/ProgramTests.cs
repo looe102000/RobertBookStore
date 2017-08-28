@@ -106,18 +106,18 @@ namespace RobertBookStore.Tests
             {
                 buyBook = new List<Book>
                 {
-                    new Book{ Name = "哈利波特一" , Quantity=1 ,SalePrice= 100},
-                    new Book{ Name = "哈利波特二" , Quantity=1 ,SalePrice= 100},
-                    new Book{ Name = "哈利波特三" , Quantity=1 ,SalePrice= 100},
-                    new Book{ Name = "哈利波特四" , Quantity=1 ,SalePrice= 100},
-                    new Book{ Name = "哈利波特五" , Quantity=1 ,SalePrice= 100}
+                    new Book{ Name = "哈利波特一" , Quantity=2 ,SalePrice= 100},
+                    new Book{ Name = "哈利波特二" , Quantity=2 ,SalePrice= 100},
+                    new Book{ Name = "哈利波特三" , Quantity=2 ,SalePrice= 100},
+                    new Book{ Name = "哈利波特四" , Quantity=2 ,SalePrice= 100},
+                    new Book{ Name = "哈利波特五" , Quantity=2 ,SalePrice= 100}
                 }
             };
 
             target.ShoppingCartCalculation(CustomerShoppingCart);
 
             //assert
-            var expected = 375;
+            var expected = 750;
 
             Assert.AreEqual(expected, CustomerShoppingCart.GrossPrice);
         }
@@ -164,6 +164,32 @@ namespace RobertBookStore.Tests
 
             //assert
             var expected = 460;
+
+            Assert.AreEqual(expected, CustomerShoppingCart.GrossPrice);
+        }
+
+        [TestMethod()]
+        public void 第一二三集各買了兩本_四五共買一本_最便宜算法()
+        {
+            //arrange
+            var target = new BookStore();
+            var CustomerShoppingCart = new ShoppingCart
+            {
+                buyBook = new List<Book>
+                {
+                    new Book{ Name = "哈利波特一" , Quantity=2 ,SalePrice= 100},
+                    new Book{ Name = "哈利波特二" , Quantity=2 ,SalePrice= 100},
+                    new Book{ Name = "哈利波特三" , Quantity=2 ,SalePrice= 100},
+                    new Book{ Name = "哈利波特四" , Quantity=1 ,SalePrice= 100},
+                    new Book{ Name = "哈利波特五" , Quantity=1 ,SalePrice= 100},
+
+                }
+            };
+
+            target.ShoppingCartCalculation(CustomerShoppingCart);
+
+            //assert
+            var expected = 640;
 
             Assert.AreEqual(expected, CustomerShoppingCart.GrossPrice);
         }
