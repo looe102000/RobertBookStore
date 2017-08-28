@@ -11,9 +11,21 @@ namespace RobertBookStore.Tests
     public class ProgramTests
     {
         [TestMethod()]
-        public void GET_BOOK()
+        public void 單一一本書時單價100()
         {
-            Assert.Fail();
+            //arrange
+            var target = new BookStore();
+            var CustomerShoppingCart = new List<ShoppingCart>
+            {
+                new ShoppingCart{ProductItem="哈利波特一",Quantity=1}
+            };
+
+            target.ShoppingCartCalculation(CustomerShoppingCart);
+
+            //assert
+            var expected = 100;
+
+            Assert.AreEqual(expected, CustomerShoppingCart[0].Quantity);
         }
     }
 }
