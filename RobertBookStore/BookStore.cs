@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 
 namespace RobertBookStore
 {
@@ -23,7 +22,7 @@ namespace RobertBookStore
             bool SpeciallyDiscountFlag = false;
 
             //共買五冊，並且 數量組合等於兩種，啟動特別折扣開關
-            if(customerShoppingCart.buyBook.Count == 5 && BookQuantityGroup.Count() == 2)
+            if (customerShoppingCart.buyBook.Count == 5 && BookQuantityGroup.Count() == 2)
             {
                 SpeciallyDiscountFlag = true;
             }
@@ -38,7 +37,7 @@ namespace RobertBookStore
                 SubTotal = 0d;
 
                 //將購物車內物品依序讀取
-                foreach (var ShoppingCartItem in customerShoppingCart.buyBook.OrderBy(x => x.Name))
+                foreach (var ShoppingCartItem in customerShoppingCart.buyBook)
                 {
                     //將價格依序累計
                     SubTotal += ShoppingCartItem.SalePrice;
@@ -46,7 +45,7 @@ namespace RobertBookStore
                     //將數量減1
                     ShoppingCartItem.Quantity = ShoppingCartItem.Quantity - 1;
 
-                    //數量為0的移除 list 
+                    //數量為0的移除 list
                     if (ShoppingCartItem.Quantity == 0)
                     {
                         customerShoppingCart.buyBook.Remove(ShoppingCartItem);
@@ -59,7 +58,7 @@ namespace RobertBookStore
                         BookCout++;
                     }
 
-                    //啟動特別折扣
+                    //啟動特別折扣(只能剛好符合 2 2 2 1 1 需要)
                     if (SpeciallyDiscountFlag)
                     {
                         if (BookCout == 4)
@@ -67,7 +66,6 @@ namespace RobertBookStore
                             break;
                         }
                     }
-
                 }
 
                 //折扣
