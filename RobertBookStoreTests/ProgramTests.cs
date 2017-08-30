@@ -193,5 +193,55 @@ namespace RobertBookStore.Tests
 
             Assert.AreEqual(expected, CustomerShoppingCart.GrossPrice);
         }
+        [TestMethod()]
+        public void 第一二三四集各買了兩本_五共買一本_最便宜算法()
+        {
+            //arrange
+            var target = new BookStore();
+            var CustomerShoppingCart = new ShoppingCart
+            {
+                buyBook = new List<Book>
+                {
+                    new Book{ Name = "哈利波特一" , Quantity=2 ,SalePrice= 100},
+                    new Book{ Name = "哈利波特二" , Quantity=2 ,SalePrice= 100},
+                    new Book{ Name = "哈利波特三" , Quantity=2 ,SalePrice= 100},
+                    new Book{ Name = "哈利波特四" , Quantity=2 ,SalePrice= 100},
+                    new Book{ Name = "哈利波特五" , Quantity=1 ,SalePrice= 100},
+
+                }
+            };
+
+            target.ShoppingCartCalculation(CustomerShoppingCart);
+
+            //assert
+            var expected = 695;
+
+            Assert.AreEqual(expected, CustomerShoppingCart.GrossPrice);
+        }
+        [TestMethod()]
+        public void 第一二三集各買了四本_四五共買二本_最便宜算法()
+        {
+            //arrange
+            var target = new BookStore();
+            var CustomerShoppingCart = new ShoppingCart
+            {
+                buyBook = new List<Book>
+                {
+                    new Book{ Name = "哈利波特一" , Quantity=4 ,SalePrice= 100},
+                    new Book{ Name = "哈利波特二" , Quantity=4 ,SalePrice= 100},
+                    new Book{ Name = "哈利波特三" , Quantity=4 ,SalePrice= 100},
+                    new Book{ Name = "哈利波特四" , Quantity=2 ,SalePrice= 100},
+                    new Book{ Name = "哈利波特五" , Quantity=2 ,SalePrice= 100},
+
+                }
+            };
+
+            target.ShoppingCartCalculation(CustomerShoppingCart);
+
+            //assert
+            var expected = 1280;
+
+            Assert.AreEqual(expected, CustomerShoppingCart.GrossPrice);
+        }
     }
 }
