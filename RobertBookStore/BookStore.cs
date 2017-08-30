@@ -29,7 +29,7 @@ namespace RobertBookStore
                 SubTotal = 0d;
 
                 //將購物車內物品依序讀取
-                foreach (var ShoppingCartItem in customerShoppingCart.buyBook.OrderBy(x =>x.Name))
+                foreach (var ShoppingCartItem in customerShoppingCart.buyBook)
                 {
                     //將價格依序累計
                     SubTotal += ShoppingCartItem.SalePrice;
