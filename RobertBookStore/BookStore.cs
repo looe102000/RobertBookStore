@@ -58,43 +58,43 @@ namespace RobertBookStore
             //先將書籍依序讀出
             foreach (var discount_item in _discount)
             {
+                List<decimal> payPriceSalePriceList = new List<decimal>();
+
                 //先將書籍依序讀出
-                foreach (var PayBook in booklist)
+                foreach (var PayBook in booklist.Select((value, index) => new { index, value }))
                 {
-                    //將價格依序累計
-                    SubTotal += PayBook.SalePrice;
-
-                    //將數量減1
-                    PayBook.Quantity = PayBook.Quantity - 1;
-
-                    //數量為0的移除 list
-                    if (PayBook.Quantity == 0)
-                    {
-                        customerShoppingCart.buyBook.Remove(PayBook);
-                    }
-
                     //判斷 書名是否一樣
-                    if (PayBook.Name != LastBookName)
+                    if (PayBook.value.Name != LastBookName)
                     {
-                        LastBookName = PayBook.Name;
+                        LastBookName = PayBook.value.Name;
                         BookCout++;
                     }
 
-                    if(BookCout == discount_item.Key)
+                    if (BookCout == discount_item.Key)
                     {
-                        SumTotlal += SubTotal * GetDiscount(BookCout);
+                        SubTotal += PayBook.value.SalePrice;
+
+                        payPriceSalePriceList.Add(SubTotal * GetDiscount(BookCout));
+
                         SubTotal = 0;
+                        BookCout = 0;
                     }
                     else
                     {
-                        SumTotlal += SubTotal;
+                        SubTotal += PayBook.value.SalePrice;
                     }
+
+                    if(PayBook.index == booklist.Count - 1)
+                    {
+                        payPriceSalePriceList.Add(SubTotal);
+                    }
+
                 }
 
-                payPriceList.Add(SumTotlal);
+                payPriceList.Add(payPriceSalePriceList.Sum());
                 SumTotlal = 0;
                 SubTotal = 0;
-
+                BookCout = 0;
             }
 
             customerShoppingCart.GrossPrice = payPriceList.Min();
