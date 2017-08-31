@@ -41,4 +41,17 @@ namespace RobertBookStore
         public decimal GrossPrice { get; set; }
     }
 
+    public class Pay
+    {
+        /// <summary>
+        /// 書名
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
+        /// 價格
+        /// </summary>
+        public decimal SalePrice { get; set; }
+    }
+
 }

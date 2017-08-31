@@ -15,9 +15,11 @@ namespace RobertBookStore
             var BookCout = 0;          //區塊中書籍量
             var LastBookName = "";     //上一本書名
             var BookQuerytotal = 0;
+            var bookIndex = 0;
 
 
             List<Book> booklist = GetBookList(customerShoppingCart);
+
             List<decimal> payPriceList = new List<decimal>();
 
             
@@ -25,17 +27,25 @@ namespace RobertBookStore
             foreach (var discount_item in _discount)
             {
                 BookQuerytotal = booklist.Count();
+                bookIndex = 0;
+
                 List<decimal> payPriceSalePriceList = new List<decimal>();
+
                 //先將書籍依序讀出
                 foreach (var PayBook in booklist.Select((value, index) => new { index, value }))
                 {
-                    BookQuerytotal = BookQuerytotal - 1;
+                    
 
-                    //判斷 書名是否一樣
-                    if (PayBook.value.Name != LastBookName)
+                    BookCout++;
+                    for (int i = PayBook.index-1; i > bookIndex; i--)
                     {
-                        LastBookName = PayBook.value.Name;
-                        BookCout++;
+                        ////判斷 書名是否一樣
+                        if (PayBook.value.Name == booklist[i].Name)
+                        {
+                            //LastBookName = PayBook.value.Name;
+                            BookCout--;
+                        }
+
                     }
 
                     SubTotal += PayBook.value.SalePrice;
@@ -45,9 +55,12 @@ namespace RobertBookStore
                         if (BookCout == discount_item.Key)
                         {
                             payPriceSalePriceList.Add(SubTotal * GetDiscount(BookCout));
+                            BookQuerytotal = BookQuerytotal - BookCout;
+                            bookIndex = PayBook.index;
 
                             SubTotal = 0;
                             BookCout = 0;
+
                         }
                     }
                     else
@@ -55,9 +68,13 @@ namespace RobertBookStore
                         if (BookCout == (discount_item.Key-1))
                         {
                             payPriceSalePriceList.Add(SubTotal * GetDiscount(BookCout));
+                            BookQuerytotal = BookQuerytotal - BookCout;
 
+                            bookIndex = PayBook.index;
                             SubTotal = 0;
                             BookCout = 0;
+
+                            
                         }
                     }
                     
@@ -120,7 +137,6 @@ namespace RobertBookStore
         /// </summary>
         private Dictionary<int, decimal> _discount = new Dictionary<int, decimal>()
         {
-            {0, 0},
             {1, 1},
             {2, 0.95m},
             {3, 0.9m},
