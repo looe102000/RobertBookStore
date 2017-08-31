@@ -15,42 +15,28 @@ namespace RobertBookStore
             var BookCout = 0;          //區塊中書籍量
             var LastBookName = "";     //上一本書名
             var SumTotlal = 0m;        //區塊總和
+            var MAX_BookQuantity = 0;   //計算區塊數量
 
             List<Book> booklist = new List<Book>();
 
+            MAX_BookQuantity = customerShoppingCart.buyBook.Max(x => x.Quantity);
 
-            //先將書籍依序讀出
-            foreach (var ShoppingCartItem in customerShoppingCart.buyBook.OrderBy(x => x.Name))
+            for (int i = 0; i < MAX_BookQuantity; i++)
             {
-                for (int i = 0; i < ShoppingCartItem.Quantity; i++)
+                //先將書籍依序讀出
+                foreach (var ShoppingCartItem in customerShoppingCart.buyBook.OrderBy(x => x.Name))
                 {
+                    //將數量減1
+                    ShoppingCartItem.Quantity = ShoppingCartItem.Quantity - 1;
+
+                    //數量為0的移除 list
+                    if (ShoppingCartItem.Quantity == 0)
+                    {
+                        customerShoppingCart.buyBook.Remove(ShoppingCartItem);
+                    }
+
                     booklist.Add(ShoppingCartItem);
                 }
-            }
-
-            //將書籍排列順序整理
-            var lstBooklistItem = "";
-            for (int i = 0; i < booklist.Count; i++)
-            {
-                if (booklist[i].Name == lstBooklistItem)
-                {
-
-                    while (booklist[i].Name == lstBooklistItem)
-                    {
-                        var tmp = booklist[i];
-
-                        if (i != booklist.Count - 1)
-                        {
-                            booklist[i] = booklist[i + 1];
-                            booklist[i + 1] = tmp;
-                        }
-                        else
-                        {
-                            lstBooklistItem = "";
-                        }
-                    }
-                }
-                lstBooklistItem = booklist[i].Name;
             }
 
             List<decimal> payPriceList = new List<decimal>();
@@ -59,7 +45,6 @@ namespace RobertBookStore
             foreach (var discount_item in _discount)
             {
                 List<decimal> payPriceSalePriceList = new List<decimal>();
-
                 //先將書籍依序讀出
                 foreach (var PayBook in booklist.Select((value, index) => new { index, value }))
                 {
@@ -84,14 +69,14 @@ namespace RobertBookStore
                         SubTotal += PayBook.value.SalePrice;
                     }
 
-                    if(PayBook.index == booklist.Count - 1)
+                    if (PayBook.index == booklist.Count - 1)
                     {
                         payPriceSalePriceList.Add(SubTotal);
                     }
-
                 }
 
                 payPriceList.Add(payPriceSalePriceList.Sum());
+                
                 SumTotlal = 0;
                 SubTotal = 0;
                 BookCout = 0;
