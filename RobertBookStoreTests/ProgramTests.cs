@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
-using System;
 
 namespace RobertBookStore.Tests
 {
@@ -16,7 +15,7 @@ namespace RobertBookStore.Tests
             {
                 buyBook = new List<Book>
                 {
-                    new Book{ Name = "哈利波特一" , Quantity=1 ,SalePrice= 100} 
+                    new Book{ Name = "哈利波特一" , Quantity=1 ,SalePrice= 100}
                 }
             };
 
@@ -182,7 +181,6 @@ namespace RobertBookStore.Tests
                     new Book{ Name = "哈利波特三" , Quantity=2 ,SalePrice= 100},
                     new Book{ Name = "哈利波特四" , Quantity=1 ,SalePrice= 100},
                     new Book{ Name = "哈利波特五" , Quantity=1 ,SalePrice= 100},
-
                 }
             };
 
@@ -193,6 +191,7 @@ namespace RobertBookStore.Tests
 
             Assert.AreEqual(expected, CustomerShoppingCart.GrossPrice);
         }
+
         [TestMethod()]
         public void 第一二三四集各買了兩本_五共買一本_最便宜算法()
         {
@@ -207,7 +206,6 @@ namespace RobertBookStore.Tests
                     new Book{ Name = "哈利波特三" , Quantity=2 ,SalePrice= 100},
                     new Book{ Name = "哈利波特四" , Quantity=2 ,SalePrice= 100},
                     new Book{ Name = "哈利波特五" , Quantity=1 ,SalePrice= 100},
-
                 }
             };
 
@@ -218,6 +216,7 @@ namespace RobertBookStore.Tests
 
             Assert.AreEqual(expected, CustomerShoppingCart.GrossPrice);
         }
+
         [TestMethod()]
         public void 第一二三集各買了四本_四五共買二本_最便宜算法()
         {
@@ -232,7 +231,6 @@ namespace RobertBookStore.Tests
                     new Book{ Name = "哈利波特三" , Quantity=4 ,SalePrice= 100},
                     new Book{ Name = "哈利波特四" , Quantity=2 ,SalePrice= 100},
                     new Book{ Name = "哈利波特五" , Quantity=2 ,SalePrice= 100},
-
                 }
             };
 

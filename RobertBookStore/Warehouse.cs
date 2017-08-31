@@ -38,7 +38,7 @@ namespace RobertBookStore
         /// <summary>
         /// 總價
         /// </summary>
-        public double GrossPrice { get; set; }
+        public decimal GrossPrice { get; set; }
     }
 
 }
