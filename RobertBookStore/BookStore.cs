@@ -14,18 +14,23 @@ namespace RobertBookStore
             var SubTotal = 0m;         //每個區塊的總額
             var BookCout = 0;          //區塊中書籍量
             var LastBookName = "";     //上一本書名
+            var BookQuerytotal = 0;
 
 
             List<Book> booklist = GetBookList(customerShoppingCart);
-
             List<decimal> payPriceList = new List<decimal>();
+
+            
             //先將書籍依序讀出
             foreach (var discount_item in _discount)
             {
+                BookQuerytotal = booklist.Count();
                 List<decimal> payPriceSalePriceList = new List<decimal>();
                 //先將書籍依序讀出
                 foreach (var PayBook in booklist.Select((value, index) => new { index, value }))
                 {
+                    BookQuerytotal = BookQuerytotal - 1;
+
                     //判斷 書名是否一樣
                     if (PayBook.value.Name != LastBookName)
                     {
@@ -33,24 +38,37 @@ namespace RobertBookStore
                         BookCout++;
                     }
 
-                    if (BookCout == discount_item.Key)
+                    SubTotal += PayBook.value.SalePrice;
+
+                    if(BookQuerytotal >= discount_item.Key)
                     {
-                        SubTotal += PayBook.value.SalePrice;
+                        if (BookCout == discount_item.Key)
+                        {
+                            payPriceSalePriceList.Add(SubTotal * GetDiscount(BookCout));
 
-                        payPriceSalePriceList.Add(SubTotal * GetDiscount(BookCout));
-
-                        SubTotal = 0;
-                        BookCout = 0;
+                            SubTotal = 0;
+                            BookCout = 0;
+                        }
                     }
                     else
                     {
-                        SubTotal += PayBook.value.SalePrice;
+                        if (BookCout == (discount_item.Key-1))
+                        {
+                            payPriceSalePriceList.Add(SubTotal * GetDiscount(BookCout));
+
+                            SubTotal = 0;
+                            BookCout = 0;
+                        }
                     }
+                    
+
 
                     if (PayBook.index == booklist.Count - 1)
                     {
-                        payPriceSalePriceList.Add(SubTotal * GetDiscount(BookCout));
+                        payPriceSalePriceList.Add(SubTotal);
                     }
+
+                    
                 }
 
                 payPriceList.Add(payPriceSalePriceList.Sum());
